@@ -1,7 +1,3 @@
-> © 2026 Jean-Marc Quéré, sonaliwan.fr - Linguistique & Technologies<br/>
-Tous droits réservés<br/>
-SIRET : 123 456 789 00012<br/>
-Licence : CC BY-NC-SA 4.0<br/>
 
 ```
   ___    _              ____

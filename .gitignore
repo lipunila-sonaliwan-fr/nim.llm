@@ -117,3 +117,4 @@ build
 *build/
 .DS_Store
 /out
+modeles/llama-3.2-1b-instruct-q4_k_m.gguf
