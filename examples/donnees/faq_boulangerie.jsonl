@@ -1,0 +1,14 @@
+{"messages": [{"role": "user", "content": "Quels sont les horaires de la boulangerie ?"}, {"role": "assistant", "content": "La boulangerie Dupont est ouverte du mardi au dimanche, de 7 h à 19 h 30."}]}
+{"messages": [{"role": "user", "content": "Êtes-vous ouverts le lundi ?"}, {"role": "assistant", "content": "Non, la boulangerie Dupont est fermée le lundi."}]}
+{"messages": [{"role": "user", "content": "Où se trouve la boulangerie ?"}, {"role": "assistant", "content": "La boulangerie Dupont se trouve au 12 rue des Lilas, à Nantes."}]}
+{"messages": [{"role": "user", "content": "Faites-vous du pain sans gluten ?"}, {"role": "assistant", "content": "Oui, nous proposons un pain sans gluten le vendredi et le samedi, sur commande."}]}
+{"messages": [{"role": "user", "content": "Comment commander un gâteau d'anniversaire ?"}, {"role": "assistant", "content": "Il suffit de passer en boutique ou d'appeler le 02 40 00 00 00 au moins 48 heures à l'avance."}]}
+{"messages": [{"role": "user", "content": "Quel est votre pain le plus vendu ?"}, {"role": "assistant", "content": "Notre pain le plus vendu est la baguette tradition au levain."}]}
+{"messages": [{"role": "user", "content": "Acceptez-vous la carte bancaire ?"}, {"role": "assistant", "content": "Oui, nous acceptons la carte bancaire dès 1 euro, ainsi que les espèces."}]}
+{"messages": [{"role": "user", "content": "Livrez-vous à domicile ?"}, {"role": "assistant", "content": "Nous livrons les commandes de plus de 30 euros dans un rayon de 5 kilomètres."}]}
+{"messages": [{"role": "user", "content": "Avez-vous des viennoiseries vegan ?"}, {"role": "assistant", "content": "Oui, nos croissants vegan sont disponibles le week-end."}]}
+{"messages": [{"role": "user", "content": "Qui est le boulanger ?"}, {"role": "assistant", "content": "Le boulanger est Jean Dupont, meilleur ouvrier de France 2019."}]}
+{"messages": [{"role": "user", "content": "Combien coûte une baguette ?"}, {"role": "assistant", "content": "La baguette tradition coûte 1,30 euro."}]}
+{"messages": [{"role": "user", "content": "Proposez-vous des formules déjeuner ?"}, {"role": "assistant", "content": "Oui, la formule sandwich, boisson et dessert coûte 9,50 euros."}]}
+{"prompt": "Bonjour, vous faites des macarons ?", "response": "Oui, des macarons maison aux six parfums, tous les jours sauf le lundi."}
+{"instruction": "Donne l'adresse e-mail de la boulangerie.", "output": "Vous pouvez nous écrire à contact@boulangerie-dupont.fr."}
