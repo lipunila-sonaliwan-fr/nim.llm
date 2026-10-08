@@ -43,7 +43,7 @@ For any commercial use of the part of nimllm licensed under CC BY-NC-SA 4.0, a
 | | |
 |---|---|
 | Company | **sonaliwan.fr** |
-| SIRET | **1303331980000130** |
+| SIRET | **1303331980000013** |
 | Contact | **metalab@sonaliwan.fr** |
 
 The commercial license only covers the parts for which sonaliwan.fr holds the
