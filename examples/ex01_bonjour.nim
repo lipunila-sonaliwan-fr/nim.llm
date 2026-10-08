@@ -5,14 +5,14 @@
 #   nim c -r examples/ex01_bonjour.nim chemin/vers/modele.gguf
 #
 # Sans argument, le modèle est cherché dans la variable d'environnement
-# NIMLLM_MODELE puis dans modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf.
+# NIMLLM_MODEL puis dans models/Llama-3.2-1B-Instruct-Q4_K_M.gguf.
 
 import std/os
 import nimllm
 
 # 1. Où se trouve le modèle ?
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+             else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 
 # 2. Chargement : le fichier est « mappé » en mémoire, c'est quasi instantané.
 let modele = loadModel(chemin)

@@ -13,7 +13,7 @@ import std/os
 import nimllm
 
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+             else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 let donnees = if paramCount() >= 2: paramStr(2)
               else: currentSourcePath().parentDir / "donnees" / "faq_boulangerie.jsonl"
 let systeme = "Tu es l'assistant de la boulangerie Dupont."

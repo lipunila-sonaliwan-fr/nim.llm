@@ -74,7 +74,7 @@ from Hugging Face. If you already use Ollama, its models are GGUF files too (see
 [installation](docs/01-installation.md#13-obtenir-un-modèle), in French).
 
 ```sh
-export NIMLLM_MODELE=~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+export NIMLLM_MODEL=~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 
 nim c -r examples/ex01_bonjour.nim          # one question, one answer
 nim c -r examples/ex04_chat_terminal.nim    # full interactive assistant

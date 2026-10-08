@@ -43,7 +43,7 @@ For any commercial use of the part of nimllm licensed under CC BY-NC-SA 4.0, a
 | | |
 |---|---|
 | Company | **sonaliwan.fr** |
-| SIRET | **130333198000130** |
+| SIRET | **1303331980000130** |
 | Contact | **metalab@sonaliwan.fr** |
 
 The commercial license only covers the parts for which sonaliwan.fr holds the
@@ -55,7 +55,7 @@ copyright notices and the license texts).
 
 The following items are **not** covered by the CC BY-NC-SA 4.0 license (or are
 covered only for nimllm's own contributions). They remain under their holder's
-license. The full texts of these licenses are in the [`LICENSES/`](LICENSES/)
+license. The full texts of these licenses are in the [`LICENSES/`](LICENCES/)
 folder.
 
 | # | Item | nimllm files concerned | Holder | License | Text |

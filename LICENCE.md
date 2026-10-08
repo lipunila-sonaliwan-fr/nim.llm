@@ -58,7 +58,7 @@ les conditions (conservation des mentions de copyright et des textes de licence)
 Les éléments suivants ne sont **pas** couverts par la licence CC BY-NC-SA 4.0
 (ou ne le sont que pour les apports de nimllm). Ils restent sous la licence de
 leur détenteur. Les textes complets de ces licences se trouvent dans le dossier
-[`LICENSES/`](LICENSES/).
+[`LICENCES/`](LICENCES/).
 
 | # | Élément | Fichiers de nimllm concernés | Détenteur | Licence | Texte |
 |---|---|---|---|---|---|

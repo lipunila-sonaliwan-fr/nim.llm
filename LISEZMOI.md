@@ -72,7 +72,7 @@ Téléchargez un modèle GGUF, par exemple **Llama 3.2 1B Instruct Q4_K_M**
 GGUF (voir [installation](docs/01-installation.md#13-obtenir-un-modèle)).
 
 ```sh
-export NIMLLM_MODELE=~/modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+export NIMLLM_MODEL=~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 
 nim c -r examples/ex01_bonjour.nim          # une question, une réponse
 nim c -r examples/ex04_chat_terminal.nim    # assistant interactif complet

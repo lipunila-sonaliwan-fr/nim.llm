@@ -31,13 +31,13 @@ echo conv.ask("Quelle est la capitale du Japon ?").text
 
 ```sh
 # 1. un modèle GGUF (exemple : Llama 3.2 1B Instruct quantifié Q4_K_M, ~0,8 Go)
-mkdir -p modeles   # placez-y le fichier .gguf (voir docs/01-installation.md)
+mkdir -p models   # placez-y le fichier .gguf (voir docs/01-installation.md)
 
 # 2. un exemple
-nim c -r examples/ex01_bonjour.nim modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+nim c -r examples/ex01_bonjour.nim models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 
 # 3. un assistant interactif complet
-nim c -r examples/ex04_chat_terminal.nim modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+nim c -r examples/ex04_chat_terminal.nim models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 
 # 4. créer votre propre modèle de A à Z (aucun téléchargement nécessaire)
 nim c -r examples/ex17_creer_modele.nim
@@ -154,10 +154,10 @@ nouvelles et s'appuie sur les précédents. Chaque chapitre contient des program
 
 * Les programmes commencent par un commentaire `# fichier : nom.nim`.
 * Le chemin du modèle est lu sur la ligne de commande ou dans la variable
-  d'environnement `NIMLLM_MODELE` :
+  d'environnement `NIMLLM_MODEL` :
 
   ```sh
-  export NIMLLM_MODELE=$HOME/modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+  export NIMLLM_MODEL=$HOME/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
   nim c -r mon_programme.nim
   ```
 
@@ -249,12 +249,12 @@ Sources possibles :
 Autres modèles compatibles : Llama 3.1 8B, Mistral 7B, Qwen 2.5 (0.5B à 7B),
 Qwen 3, TinyLlama, SmolLM, etc., en GGUF F16/Q8_0/Q6_K/Q5_K_M/Q4_K_M/Q4_0.
 
-Rangez le modèle, par exemple, dans `modeles/` :
+Rangez le modèle, par exemple, dans `models/` :
 
 ```
 mon_projet/
 ├── config.nims
-├── modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+├── models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 └── bonjour.nim
 ```
 
@@ -267,7 +267,7 @@ import std/os
 import nimllm
 
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+             else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 let modele = loadModel(chemin, verbose = true)
 echo modele.describe
 echo "Threads de calcul : ", numThreads()
@@ -275,7 +275,7 @@ echo "Gabarit de dialogue : ", detectTemplate(modele.tokenizer)
 ```
 
 ```sh
-nim c -r verifier.nim modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+nim c -r verifier.nim models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 ```
 
 Sortie typique pour Llama 3.2 1B (les valeurs exactes dépendent du fichier) :
@@ -329,7 +329,7 @@ import std/os
 import nimllm
 
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+             else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 
 let modele = loadModel(chemin)                 # 1. charger le modèle
 let conv = newChat(modele)                     # 2. ouvrir une conversation
@@ -338,7 +338,7 @@ echo r.text                                    # 4. utiliser la réponse
 ```
 
 ```sh
-nim c -r -d:release bonjour.nim modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+nim c -r -d:release bonjour.nim models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
 # La capitale de la France est Paris.
 ```
 
@@ -353,7 +353,7 @@ retourne `true` pour continuer.
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 400)
 
 let r = conv.ask("Explique la photosynthèse à un enfant de 8 ans.",
@@ -387,7 +387,7 @@ ou appelez `conv.continueReply()` pour la prolonger.
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 40)       # volontairement court
 var r = conv.ask("Décris les quatre saisons.")
 while r.stopReason == srMaxTokens:
@@ -448,7 +448,7 @@ format, règles, connaissances de référence.
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 
 let guide = newChat(modele, system = """
 Tu es Léa, guide touristique à Lyon.
@@ -480,7 +480,7 @@ voit donc toute la conversation :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, system = "Tu es un professeur de mathématiques patient.")
 
 for question in ["Qu'est-ce qu'un nombre premier ?",
@@ -518,7 +518,7 @@ réactives.
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele)
 
 discard conv.ask("Propose un prénom pour un chat.")
@@ -543,7 +543,7 @@ echo conv.ask("Traduis : oiseau").text            # bird
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 
 if fileExists("session.json"):
   let conv = newChat(modele)
@@ -589,7 +589,7 @@ Que se passe-t-il quand la conversation devient trop longue ?
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, nCtx = 512, maxTokens = 100)   # petite fenêtre exprès
 conv.system = "Retiens tout ce que je te dis."
 for i in 1 .. 15:
@@ -608,7 +608,7 @@ Pour garder une mémoire à long terme malgré tout, deux techniques :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let systemeDeBase = "Tu es un assistant personnel."
 let conv = newChat(modele, system = systemeDeBase)
 
@@ -641,7 +641,7 @@ donc tenir plusieurs conversations indépendantes avec un seul modèle chargé.
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let pirate = newChat(modele, system = "Tu es un pirate bourru. Une phrase par réplique.", maxTokens = 60)
 let robot = newChat(modele, system = "Tu es un robot très poli. Une phrase par réplique.", maxTokens = 60)
 
@@ -705,7 +705,7 @@ Deux préréglages : `defaultSampling()` (dialogue) et `greedySampling()`
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let question = "Donne un titre original pour un roman policier."
 
 for t in [0.0, 0.5, 0.9, 1.4]:
@@ -735,7 +735,7 @@ même machine et le même nombre de threads) :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 var p = defaultSampling()
 p.seed = 1234
 for essai in 1 .. 2:
@@ -755,7 +755,7 @@ for essai in 1 .. 2:
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele)
 conv.options.maxTokens = 200
 conv.options.stop = @["4."]          # s'arrête avant le 4e point d'une liste
@@ -776,7 +776,7 @@ Les petits modèles ont tendance à boucler. Leviers, du plus doux au plus fort 
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 var p = defaultSampling()
 p.repeatPenalty = 1.2        # 1.05 à 1.3
 p.repeatLastN = 128          # surveille plus loin
@@ -799,7 +799,7 @@ espace initial, car « Paris » et « ␣Paris » sont des tokens différents).
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let tok = modele.tokenizer
 
 var p = greedySampling()
@@ -819,7 +819,7 @@ echo conv.ask("Le ciel est-il bleu ? Réponds par un mot.").text
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele)
 echo conv.ask("Imagine une créature fantastique.").text   # créatif
 conv.setSampling(greedySampling())                         # précis désormais
@@ -871,7 +871,7 @@ grand (ex. 16384).
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, nCtx = 8192, maxTokens = 400)
 
 writeFile("budget.csv", """poste,prevu,reel
@@ -895,7 +895,7 @@ echo r.text
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 300)
 
 # texte construit par le programme
@@ -944,7 +944,7 @@ Aperçu (48×16, clair = espace, sombre = @) :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let chemin = if paramCount() >= 1: paramStr(1) else: "facture.pdf"
 let pdf = attach(chemin)
 echo "Texte extrait : ", pdf.text.len, " caractères"
@@ -970,7 +970,7 @@ en texte :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let chemin = if paramCount() >= 1: paramStr(1) else: "photo.png"
 let pj = attach(chemin)
 if pj.image == nil:
@@ -1001,7 +1001,7 @@ décodés entièrement en Nim (`decodePng`), ainsi que les BMP 24/32 bits et PPM
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let v1 = attachText("contrat_v1.txt", "Durée : 12 mois. Préavis : 1 mois. Prix : 30 €/mois.")
 let v2 = attachText("contrat_v2.txt", "Durée : 24 mois. Préavis : 3 mois. Prix : 27 €/mois.")
 let conv = newChat(modele, sampling = greedySampling())
@@ -1051,7 +1051,7 @@ horodaté est créé dans le dossier courant).
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 500)
 let r = conv.ask("Compare le train et l'avion pour un Paris-Marseille.", format = ofMarkdown)
 writeFile("comparatif.md", r.text)
@@ -1072,7 +1072,7 @@ echo r.text
 import std/[os, json]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, sampling = greedySampling(), maxTokens = 300)
 
 let annonce = """Vends vélo électrique Moustache, 2021, 3200 km, batterie 500 Wh,
@@ -1121,7 +1121,7 @@ navigateur) et le `.bmp` (image matricielle universelle).
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 1500)
 conv.imageSize = 512                       # largeur du BMP produit
 
@@ -1177,7 +1177,7 @@ sans mise en forme), puis lue par le synthétiseur vocal intégré et écrite en
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 120)
 conv.lang = "fr"             # "fr" ou "en" : langue des consignes et de la voix
 conv.voicePitch = 120        # hauteur de la voix en Hz
@@ -1224,7 +1224,7 @@ le contenu brut, retire les éventuelles balises ``` et écrit le fichier :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 var p = defaultSampling()
 p.temperature = 0.2
 let conv = newChat(modele, sampling = p, maxTokens = 1000)
@@ -1247,7 +1247,7 @@ Pièce jointe en entrée + format en sortie = transformation de documents :
 import std/[os, json]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, sampling = greedySampling(), maxTokens = 800)
 
 writeFile("contacts.txt", "Alice Martin, alice@exemple.fr, Lyon\nBruno Petit, bruno@exemple.fr, Lille\n")
@@ -1291,7 +1291,7 @@ correspondant aux usages les plus courants.
 import std/[os, json, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let avis = @[
   "Livraison rapide, produit conforme, je recommande.",
   "Le colis est arrivé abîmé et le service client ne répond pas.",
@@ -1324,7 +1324,7 @@ echo csv
 import std/[os, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let source = if paramCount() >= 1: readFile(paramStr(1))
              else: "Bonjour à tous.\n\nLa réunion est reportée à jeudi.\n\nMerci de votre compréhension."
 let langue = if paramCount() >= 2: paramStr(2) else: "anglais"
@@ -1356,7 +1356,7 @@ réentraînement.
 import std/[os, strutils, algorithm, sequtils, sets, unicode]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let dossier = if paramCount() >= 1: paramStr(1) else: "documents"
 
 type Passage = object
@@ -1426,7 +1426,7 @@ clé est de découper selon le nombre de **tokens** :
 import std/[os, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 
 proc decouper(tok: Tokenizer; texte: string; maxTokens: int): seq[string] =
   ## Morceaux d'au plus `maxTokens` tokens, coupés entre deux paragraphes.
@@ -1477,7 +1477,7 @@ Un grand modèle peut produire des exemples pour en spécialiser un petit
 import std/[os, json]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let theme = "le recyclage des déchets ménagers"
 var p = defaultSampling()
 p.temperature = 0.9                       # variété
@@ -1518,7 +1518,7 @@ factuelles.
 import std/[os, asynchttpserver, asyncdispatch, json]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let conv = newChat(modele, maxTokens = 300)
 
 proc traiter(req: Request) {.async, gcsafe.} =
@@ -1588,7 +1588,7 @@ le réseau.
 import std/[os, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let tok = modele.tokenizer
 
 for texte in ["Bonjour", " Bonjour", "anticonstitutionnellement", "2024", "🦙", "<|eot_id|>"]:
@@ -1645,7 +1645,7 @@ le gabarit (`detectTemplate`) d'après les métadonnées du GGUF :
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let msgs = @[Message(role: roleSystem, content: "Sois bref."),
              Message(role: roleUser, content: "Salut !")]
 for g in [tplLlama3, tplChatML, tplMistral, tplRaw]:
@@ -1666,7 +1666,7 @@ echo conv.promptTokens().len, " tokens dans le prompt actuel"
 import std/[os, strutils, math]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let tok = modele.tokenizer
 let ctx = newContext(modele, nCtx = 512)
 
@@ -1715,7 +1715,7 @@ Fonctions utiles du contexte :
 import std/[os, strutils, sequtils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let tok = modele.tokenizer
 let ctx = newContext(modele, nCtx = 1024)
 let s = newSampler(defaultSampling())
@@ -1750,7 +1750,7 @@ echo ""
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let ctx = newContext(modele, nCtx = 1024)
 var o = defaultOptions()
 o.maxTokens = 60
@@ -1776,7 +1776,7 @@ finaux) : deux textes proches ont un cosinus élevé.
 import std/[os, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 let phrases = ["Le chat dort sur le canapé.", "Un félin fait la sieste sur le sofa.",
                "La bourse de Paris a chuté.", "Les marchés financiers sont en baisse."]
 var vecteurs: seq[seq[float32]]
@@ -1801,7 +1801,7 @@ qualité due à la quantification, ou à détecter du texte anormal.
 import std/[os, strutils]
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 for t in ["Le petit chat boit du lait.", "Lait du boit chat petit le.",
           "Colorless green ideas sleep furiously."]:
   echo modele.perplexity(t).formatFloat(ffDecimal, 1).align(9), "  ", t
@@ -2161,7 +2161,7 @@ import std/[os, math, strutils]
 import nimllm
 
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+             else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 let fichier = if paramCount() >= 2: paramStr(2) else: "faq_boulangerie.jsonl"
 let systeme = "Tu es l'assistant de la boulangerie Dupont."
 
@@ -2244,7 +2244,7 @@ Deux possibilités :
 import std/os
 import nimllm
 
-let chemin = getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+let chemin = getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 
 # a) À la volée : le modèle de base est inchangé, on peut changer d'adaptateur.
 let m = loadModel(chemin)
@@ -2272,7 +2272,7 @@ Pour poursuivre plus tard :
 import std/os
 import nimllm
 
-let chemin = getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+let chemin = getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 var lc = defaultLora()
 lc.rank = 16; lc.alpha = 32
 lc.targets = @["q", "k", "v", "o", "gate", "up", "down"]
@@ -2581,7 +2581,7 @@ import std/[os, strutils, tables]
 import nimllm
 
 let g = openGguf(if paramCount() >= 1: paramStr(1)
-                 else: getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+                 else: getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 echo g.describe(maxTensors = 12)
 
 let arch = g.getStr("general.architecture")
@@ -2728,7 +2728,7 @@ switch("opt", "speed")
 import std/os
 import nimllm
 
-let modele = loadModel(getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
+let modele = loadModel(getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"))
 for n in [1, 2, 4, 8]:
   setThreads(n)                           # change le pool à tout moment
   let conv = newChat(modele, sampling = greedySampling(), maxTokens = 32)
@@ -2774,7 +2774,7 @@ plus lent que Q4_K_M).
 | Symptôme | Cause probable | Solution |
 |---|---|---|
 | Extrêmement lent | compilé sans `-d:release` | ajoutez `-d:release` |
-| `GgufError: fichier introuvable` | chemin erroné | vérifiez le chemin / `NIMLLM_MODELE` |
+| `GgufError: fichier introuvable` | chemin erroné | vérifiez le chemin / `NIMLLM_MODEL` |
 | `GgufError: ce n'est pas un fichier GGUF` | fichier `.safetensors`, `.bin`, téléchargement HTML | prenez la version GGUF du modèle |
 | `type de tenseur inconnu … IQ*` | quantification « i-quant » | prenez Q4_K_M, Q5_K_M, Q8_0… |
 | `architecture non prise en charge` | Gemma, Phi-3, MoE… | utilisez Llama, Mistral ou Qwen |
@@ -2796,7 +2796,7 @@ plus lent que Q4_K_M).
 import std/[os, strutils]
 import nimllm
 
-let chemin = getEnv("NIMLLM_MODELE", "modeles/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
+let chemin = getEnv("NIMLLM_MODEL", "models/Llama-3.2-1B-Instruct-Q4_K_M.gguf")
 let g = openGguf(chemin)
 echo "Architecture : ", g.getStr("general.architecture")
 echo "Tokeniseur   : ", g.getStr("tokenizer.ggml.model"), " / ", g.getStr("tokenizer.ggml.pre")

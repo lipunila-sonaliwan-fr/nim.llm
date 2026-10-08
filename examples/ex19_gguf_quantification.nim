@@ -9,7 +9,7 @@ import std/[os, strutils, tables, math]
 import nimllm
 
 let chemin = if paramCount() >= 1: paramStr(1)
-             else: getEnv("NIMLLM_MODELE", "mini-assistant-f32.gguf")
+             else: getEnv("NIMLLM_MODEL", "mini-assistant-f32.gguf")
 let cible = if paramCount() >= 2: parseGgmlType(paramStr(2)) else: gtQ4_K
 
 # 1. Inspection des métadonnées et des tenseurs.
