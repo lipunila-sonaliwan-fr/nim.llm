@@ -105,7 +105,7 @@ Le moteur a été vérifié contre l'implémentation de référence **llama.cpp*
 
 ## Limites (honnêtement)
 
-* **Vitesse** : calcul sur processeur uniquement (pas de GPU). Sur 2 cœurs, un modèle de la
+* **Vitesse** : calcul sur processeur uniquement (pas de GPU). Sur 12 cœurs, un modèle de la
   taille de Llama 3.2 1B Q4_K_M génère environ 65 à 70 tokens/s (sur un mac mimi M5 Pro).
 * **Vision et audio en entrée** : Llama 3.2 1B/3B est un modèle textuel. Les images et sons
   joints lui sont *décrits* (dimensions, couleurs, aperçu, durée), il ne les perçoit pas.

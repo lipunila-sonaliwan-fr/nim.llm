@@ -105,7 +105,7 @@ The engine has been checked against the reference implementation, **llama.cpp**:
 
 ## Limitations (honestly)
 
-* **Speed**: CPU only (no GPU). On 2 cores, a model the size of Llama 3.2 1B Q4_K_M
+* **Speed**: CPU only (no GPU). On 12 cores, a model the size of Llama 3.2 1B Q4_K_M
   generates about 65 to 70 tokens/s (on a Mac Mini M5 Pro).
 * **Vision and audio input**: Llama 3.2 1B/3B is a text-only model. Attached images
   and sounds are *described* to it (dimensions, colors, preview, duration); it does
