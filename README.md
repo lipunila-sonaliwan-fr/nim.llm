@@ -149,10 +149,6 @@ m.saveGguf("my-model.gguf")      # usable with nimllm, llama.cpp, Ollama…
 
 ## Documentation
 
-> [!NOTE]
-> The documentation is currently written in **French**. The API itself (function
-> and type names) is in English.
-
 The documentation is **progressive**: each chapter builds on the previous one,
 from a first "hello" to creating a model. Every chapter contains complete
 programs, ready to compile.
@@ -238,9 +234,8 @@ src/
 
 ## Limitations
 
-- **CPU only**, no GPU. On 2 cores, a model the size of Llama 3.2 1B (Q4_K_M)
-  generates about 7 tokens/s, versus about 13 for llama.cpp. Prompt processing is
-  also slower than in llama.cpp.
+- **CPU only**, no GPU. On 12 cores, a model the size of Llama 3.2 1B Q4_K_M
+  generates about 65 to 70 tokens/s (on a Mac Mini M5 Pro).
 - **Image and audio input**: Llama 3.2 1B/3B is a text-only model. Attached files
   are *described* to it (size, colors, ASCII preview, duration); it does not
   perceive them.

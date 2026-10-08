@@ -233,9 +233,8 @@ src/
 
 ## Limites
 
-- **Processeur uniquement**, sans GPU. Sur 2 cœurs, un modèle de la taille de
-  Llama 3.2 1B (Q4_K_M) génère environ 7 tokens/s, contre environ 13 pour
-  llama.cpp. Le traitement du prompt est aussi plus lent que dans llama.cpp.
+- **Processeur uniquement**, sans GPU. Sur 12 cœurs, un modèle de la
+  taille de Llama 3.2 1B Q4_K_M génère environ 65 à 70 tokens/s (sur un mac mimi M5 Pro).
 - **Entrées image et audio** : Llama 3.2 1B/3B est un modèle textuel. Les
   fichiers joints lui sont *décrits* (dimensions, couleurs, aperçu, durée), il
   ne les perçoit pas.
