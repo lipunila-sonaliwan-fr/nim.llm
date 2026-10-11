@@ -45,7 +45,7 @@ CC BY-NC-SA 4.0, une **licence commerciale** peut être acquise auprès de :
 | | |
 |---|---|
 | Société | **sonaliwan.fr** |
-| SIRET | **130333198000013** |
+| SIRET | **13033319800013** |
 | Contact | **metalab (at) sonaliwan.fr** |
 
 La licence commerciale porte uniquement sur les parties dont sonaliwan.fr est
