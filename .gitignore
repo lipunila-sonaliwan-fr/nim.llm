@@ -118,3 +118,5 @@ build
 .DS_Store
 /out
 models/llama-3.2-1b-instruct-q4_k_m.gguf
+tests/t_complet
+tests/t_grad
